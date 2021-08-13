@@ -1,6 +1,8 @@
+import javax.persistence.Entity;
 import java.util.Date;
 import java.util.Objects;
 
+@Entity
 public class Student {
     private String name;
     private Date birthDate;

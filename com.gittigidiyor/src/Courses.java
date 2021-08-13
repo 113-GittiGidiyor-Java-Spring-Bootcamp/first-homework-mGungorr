@@ -1,5 +1,7 @@
+import javax.persistence.Entity;
 import java.util.Objects;
 
+@Entity
 public class Courses {
     private String courseName;
     private int courseCode;
