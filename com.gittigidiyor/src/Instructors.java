@@ -1,5 +1,7 @@
+import javax.persistence.Entity;
 import java.util.Objects;
 
+@Entity
 public class Instructors {
     private String instructorName;
     private String instructorAdress;
