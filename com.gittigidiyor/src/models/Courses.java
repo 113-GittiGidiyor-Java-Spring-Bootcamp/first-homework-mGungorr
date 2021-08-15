@@ -1,11 +1,24 @@
-import javax.persistence.Entity;
+package models;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 public class Courses {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String courseName;
     private int courseCode;
     private int courseCreditPoint;
+
+    @ManyToMany
+    private List<Student> students = new ArrayList<>();
+
+    @ManyToOne
+    private Instructors instructor;
 
     public Courses() {
     }
@@ -40,6 +53,30 @@ public class Courses {
         this.courseCreditPoint = courseCreditPoint;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
+
+    public Instructors getInstructor() {
+        return instructor;
+    }
+
+    public void setInstructor(Instructors instructor) {
+        this.instructor = instructor;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -55,7 +92,7 @@ public class Courses {
 
     @Override
     public String toString() {
-        return "Courses{" +
+        return "models.Courses{" +
                 "courseName='" + courseName + '\'' +
                 ", courseCode=" + courseCode +
                 ", courseCreditPoint=" + courseCreditPoint +

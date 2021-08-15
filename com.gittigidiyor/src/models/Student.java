@@ -1,18 +1,29 @@
-import javax.persistence.Entity;
-import java.util.Date;
+package models;
+
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 public class Student {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String name;
-    private Date birthDate;
+    private LocalDate birthDate;
     private String adress;
     private Gender gender;
+
+    @ManyToMany(mappedBy = "students")
+    private List<Courses> studentCourses = new ArrayList<>();
 
     public Student() {
     }
 
-    public Student(String name, Date birthDate, String adress, Gender gender) {
+    public Student(String name, LocalDate birthDate, String adress, Gender gender) {
         this.name = name;
         this.birthDate = birthDate;
         this.adress = adress;
@@ -27,11 +38,11 @@ public class Student {
         this.name = name;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
@@ -51,6 +62,22 @@ public class Student {
         this.gender = gender;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public List<Courses> getStudentCourses() {
+        return studentCourses;
+    }
+
+    public void setStudentCourses(List<Courses> studentCourses) {
+        this.studentCourses = studentCourses;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -66,7 +93,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" +
+        return "models.Student{" +
                 "name='" + name + '\'' +
                 ", birthDate=" + birthDate +
                 ", adress='" + adress + '\'' +
