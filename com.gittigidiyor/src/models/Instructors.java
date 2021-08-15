@@ -1,16 +1,36 @@
-import javax.persistence.Entity;
+package models;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Instructors {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String instructorName;
     private String instructorAdress;
     private long instructorPhone;
+
+    @OneToMany(mappedBy = "instructor")
+    private List<Courses> courseList = new ArrayList<>();
+
 
     public Instructors(String instructorName, String instructorAdress, long instructorPhone) {
         this.instructorName = instructorName;
         this.instructorAdress = instructorAdress;
         this.instructorPhone = instructorPhone;
+    }
+
+    public Instructors(int id, String instructorName, String instructorAdress, long instructorPhone, List<Courses> courseList) {
+        this.id = id;
+        this.instructorName = instructorName;
+        this.instructorAdress = instructorAdress;
+        this.instructorPhone = instructorPhone;
+        this.courseList = courseList;
     }
 
     public Instructors() {
@@ -40,6 +60,14 @@ public class Instructors {
         this.instructorPhone = instructorPhone;
     }
 
+    public List<Courses> getCourseList() {
+        return courseList;
+    }
+
+    public void setCourseList(List<Courses> courseList) {
+        this.courseList = courseList;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -55,7 +83,7 @@ public class Instructors {
 
     @Override
     public String toString() {
-        return "Instructors{" +
+        return "models.Instructors{" +
                 "instructorName='" + instructorName + '\'' +
                 ", instructorAdress='" + instructorAdress + '\'' +
                 ", instructorPhone=" + instructorPhone +
